@@ -27,17 +27,26 @@ public class GodModeCommand extends AtherialLibSpigotCommand<TrialCoreConfig, Tr
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-
+        
         return CommandUtils.getOnlinePlayersCompletion(args);
     }
 
     @Override
     public void run(CommandSender s, String[] args) {
-        if (args.length != 1) {
+        Player player;
+        if (args.length == 0) {
+            if (!(s instanceof Player)) {
+                CommandUtils.sendPlayerOnlyMessage(s);
+                return;
+            }
+            player = (Player) s;
+        } else if (args.length==1) {
+            player=Bukkit.getPlayer(args[0]);
+        } else {
             CommandUtils.sendCommandUsage(s, "/" + label,  "[player]");
             return;
         }
-        Player player = Bukkit.getPlayer(args[0]);
+
         if ((player == null) || !player.isOnline()) {
             CommandUtils.sendPlayerOfflineMessage(s, args[0]);
             return;
