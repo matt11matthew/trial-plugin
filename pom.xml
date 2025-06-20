@@ -40,6 +40,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <finalName>TrialCore</finalName>
+                </configuration>
             </plugin>
         </plugins>
         <resources>
@@ -59,6 +62,10 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>matthew-nexus</id>
+            <url>https://nexus.matthewe.me/repository/group/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -67,6 +74,12 @@
             <artifactId>paper-api</artifactId>
             <version>1.21.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <scope>compile</scope>
+            <groupId>me.matthewedevelopment</groupId>
+            <artifactId>atheriallib</artifactId>
+            <version>1.0.11</version>
         </dependency>
     </dependencies>
 </project>
