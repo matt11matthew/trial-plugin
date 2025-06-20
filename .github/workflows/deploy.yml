@@ -1,0 +1,61 @@
+---
+name: Build, Deploy
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch: null
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: "21"
+          distribution: temurin
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
+      - name: Build all modules
+        run: mvn -B clean install -DskipTests
+      - name: Upload plugin JAR to /plugins folder via API
+        run: >
+          curl -X POST
+          "https://panel.matthewe.me/api/client/servers/${{ vars.SERVER_KEY }}/files/write?file=plugins/TrialCore.jar&root="
+          \
+            -H "Authorization: Bearer ${{ secrets.PANEL_BEARER }}" \
+            -H "Content-Type: application/java-archive" \
+            --data-binary "@target/TrialCore.jar"
+      - name: Check server power state
+        id: check_power
+        run: >
+          response=$(curl -s -H "Authorization: Bearer
+          ${{ secrets.PANEL_BEARER }}" \
+                          -H "Accept: Application/vnd.pterodactyl.v1+json" \
+                          "https://panel.matthewe.me/api/client/servers/${{ vars.SERVER_KEY }}/resources")
+          state=$(echo "$response" | jq -r '.attributes.current_state')
+
+          echo "state=$state" >> "$GITHUB_OUTPUT"
+      - name: Send command or start server
+        run: >
+          if [ "${{ steps.check_power.outputs.state }}" = "running" ]; then
+            echo "Server is online. Sending /atherialdeploy reboot..."
+            curl -X POST "https://panel.matthewe.me/api/client/servers/${{ vars.SERVER_KEY }}/command" \
+              -H "Authorization: Bearer ${{ secrets.PANEL_BEARER }}" \
+              -H "Content-Type: application/json" \
+              -H "Accept: Application/vnd.pterodactyl.v1+json" \
+              -d '{"command": "atherialdeploy reboot"}'
+          else
+            echo "Server is offline. Sending start signal..."
+            curl -X POST "https://panel.matthewe.me/api/client/servers/${{ vars.SERVER_KEY }}/power" \
+              -H "Authorization: Bearer ${{ secrets.PANEL_BEARER }}" \
+              -H "Content-Type: application/json" \
+              -H "Accept: Application/vnd.pterodactyl.v1+json" \
+              -d '{"signal": "start"}'
+          fi
