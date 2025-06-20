@@ -82,7 +82,7 @@ public class TrialProfile  extends AtherialProfile<TrialProfile> {
         godMode = !godMode;
         if (godMode) {
             p.setHealth(p.getMaxHealth());
-            p.setFoodLevel(p.getFoodLevel());
+            p.setFoodLevel(20);
             p.setSaturation(1.0F);
         }
         save();
