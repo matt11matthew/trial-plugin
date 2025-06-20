@@ -8,8 +8,14 @@ public class TrialCoreConfig   extends YamlConfig<TrialCore> {
 
     @SerializedName("permissions.gamemodeUse")
     public String gameModePermission = "gamemode.use";
-@SerializedName("messages.invalidGameMode")
+
+    @SerializedName("permissions.godModeUse")
+    public String godModePermission = "godmode.use";
+
+    @SerializedName("messages.invalidGameMode")
     public ChatMessage invalidGameModeMessage = new ChatMessage("<red>Invalid gamemode <white>'<mode>'</white>, valid modes: CREATIVE, SURVIVAL, ADVENTURE, SPECTATOR. </red>");
+    @SerializedName("messages.openinv.openingInventory")
+    public ChatMessage openingInventoryMessage = new ChatMessage("<green>Viewing <player>'s inventory.</green>");
 
 
     @SerializedName("messages.godMode.toggleGodModeSelf")

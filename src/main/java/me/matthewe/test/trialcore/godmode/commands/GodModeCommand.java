@@ -27,7 +27,7 @@ public class GodModeCommand extends AtherialLibSpigotCommand<TrialCoreConfig, Tr
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        
+
         return CommandUtils.getOnlinePlayersCompletion(args);
     }
 
