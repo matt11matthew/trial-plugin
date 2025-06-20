@@ -24,17 +24,11 @@ public class TPAAcceptCommand extends AtherialLibSpigotCommand<TrialCoreConfig, 
         this.permission = config.tpaAcceptPermission;
         this.playerOnly = true;
     }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-
-        return CommandUtils.getOnlinePlayersCompletion(args);
-    }
-
+    
     @Override
     public void run(CommandSender s, String[] args) {
-        if (args.length != 1) {
-            CommandUtils.sendCommandUsage(s, "/" + label, "<player>");
+        if (args.length != 0) {
+            CommandUtils.sendCommandUsage(s, "/" + label);
             return;
         }
 
