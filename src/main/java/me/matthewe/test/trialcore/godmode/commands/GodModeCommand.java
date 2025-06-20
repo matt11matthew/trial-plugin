@@ -22,7 +22,7 @@ public class GodModeCommand extends AtherialLibSpigotCommand<TrialCoreConfig, Tr
 
     public GodModeCommand(TrialCoreConfig config, TrialCore main) {
         super("god", config, main, "godmode");
-        this.permission = config.gameModePermission;
+        this.permission = config.godModePermission;
     }
 
     @Override

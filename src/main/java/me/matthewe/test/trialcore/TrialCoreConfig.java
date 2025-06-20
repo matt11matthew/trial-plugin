@@ -11,6 +11,11 @@ public class TrialCoreConfig   extends YamlConfig<TrialCore> {
 
     @SerializedName("permissions.inventoryOpen")
     public String inventoryOpenPermission = "inventoryopen.use";
+
+    @SerializedName("permissions.fix")
+    public String fixPermission = "inventoryopen.use";
+
+
    @SerializedName("permissions.echestOpen")
     public String echestOpenPermission = "echestOpen.use";
 
@@ -26,6 +31,11 @@ public class TrialCoreConfig   extends YamlConfig<TrialCore> {
     @SerializedName("messages.enderchest.opening")
     public ChatMessage echestOpeningMessage = new ChatMessage("<green>Opening <player>'s enderchest.</green>");
 
+    @SerializedName("messages.fix.fix")
+    public ChatMessage fixItemMessage = new ChatMessage("<green>Fixed item.</green>");
+
+    @SerializedName("messages.fix.noItemInMainHand")
+    public ChatMessage fixNoItemInMainHandMessage = new ChatMessage("<red>Not holding item in hand.</red>");
 
 
 
