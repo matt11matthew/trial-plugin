@@ -5,6 +5,12 @@ import me.matthewedevelopment.atheriallib.message.message.ChatMessage;
 import org.bukkit.Material;
 
 public class TrialCoreConfig   extends YamlConfig<TrialCore> {
+    @SerializedName("permissions.tpa")
+    public String tpaPermission = "tpa.use";
+
+    @SerializedName("permissions.tpaaccept")
+    public String tpaAcceptPermission = "tpa.accept";
+
 
     @SerializedName("permissions.gamemodeUse")
     public String gameModePermission = "gamemode.use";
@@ -21,7 +27,17 @@ public class TrialCoreConfig   extends YamlConfig<TrialCore> {
 
    @SerializedName("permissions.echestOpen")
     public String echestOpenPermission = "echestOpen.use";
+    @SerializedName("messages.tpa.get")
+    public ChatMessage tpaGetMessage = new ChatMessage("<green>Received TPA request from <player> type /tpaaccept</green>");
+    @SerializedName("messages.tpa.noRequest")
+    public ChatMessage noTPARequestMessage = new ChatMessage("<red>You do not currently have any tpa requests.</red>");
+    @SerializedName("messages.tpa.accept")
+    public ChatMessage tpaAcceptMessage = new ChatMessage("<red>Accepted tpa request.</red>");
 
+
+
+    @SerializedName("messages.tpa.send")
+    public ChatMessage tpaSendMessage = new ChatMessage("<green>Sending to request to <player>.</green>");
 
     @SerializedName("permissions.godModeUse")
     public String godModePermission = "godmode.use";

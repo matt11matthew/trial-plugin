@@ -1,9 +1,6 @@
 package me.matthewe.test.trialcore;
 
-import me.matthewe.test.trialcore.commands.EnderChestCommand;
-import me.matthewe.test.trialcore.commands.FixCommand;
-import me.matthewe.test.trialcore.commands.GameModeCommand;
-import me.matthewe.test.trialcore.commands.OpenInventoryCommand;
+import me.matthewe.test.trialcore.commands.*;
 import me.matthewe.test.trialcore.godmode.GodModeHandler;
 import me.matthewe.test.trialcore.profile.TrialProfile;
 import me.matthewe.test.trialcore.trash.TrashHandler;
@@ -45,6 +42,7 @@ public  class TrialCore extends AtherialAddon {
         registerCommand(new OpenInventoryCommand(this.config, this));
         registerCommand(new EnderChestCommand(this.config, this));
         registerCommand(new FixCommand(this.config, this));
+        registerCommand(new TPACommand(this.config, this));
     }
 
     @Override

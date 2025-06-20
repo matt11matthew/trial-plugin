@@ -16,8 +16,10 @@ import java.util.UUID;
 
 @Getter
 public class TrialProfile  extends AtherialProfile<TrialProfile> {
-    @Setter
     private boolean godMode;
+
+    @Setter
+    private String tpaId;
 
     public TrialProfile() {
     }
@@ -44,6 +46,7 @@ public class TrialProfile  extends AtherialProfile<TrialProfile> {
     @Override
     public TrialProfile loadDefault(Player player) {
         this.godMode = false;
+        this.tpaId = null;
         return this;
     }
 
@@ -51,6 +54,7 @@ public class TrialProfile  extends AtherialProfile<TrialProfile> {
     @Override
     public TrialProfile loadResultFromSet(ResultSet resultSet) {
         this.godMode = resultSet.getBoolean("godMode");
+        this.tpaId = resultSet.getString("tpaId");
         return this;
     }
 
@@ -60,7 +64,13 @@ public class TrialProfile  extends AtherialProfile<TrialProfile> {
                         .name("godMode")
                         .type(ProfileColumnType.BOOLEAN)
                         .value(godMode)
-                .build());
+                .build(),
+                ProfileColumn.builder()
+                        .name("tpaId")
+                        .type(ProfileColumnType.VARCHAR)
+                        .value(tpaId)
+                        .build()
+                );
     }
 
     public void save() {
