@@ -1,5 +1,5 @@
 
-package me.matthewe.test.trialcore.commands;
+package me.matthewe.test.trialcore.trash.commands;
 
 import me.matthewe.test.trialcore.TrialCore;
 import me.matthewe.test.trialcore.TrialCoreConfig;
@@ -7,13 +7,8 @@ import me.matthewe.test.trialcore.trash.TrashHandler;
 import me.matthewedevelopment.atheriallib.command.spigot.AtherialLibSpigotCommand;
 import me.matthewedevelopment.atheriallib.command.spigot.CommandUtils;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
-import org.bukkit.Material;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-
-import java.util.List;
 
 public class TrashCommand extends AtherialLibSpigotCommand<TrialCoreConfig, TrialCore> {
 

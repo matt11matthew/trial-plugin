@@ -2,16 +2,11 @@ package me.matthewe.test.trialcore.trash;
 
 import me.matthewe.test.trialcore.TrialCore;
 import me.matthewe.test.trialcore.TrialCoreConfig;
-import me.matthewe.test.trialcore.commands.TrashCommand;
-import me.matthewe.test.trialcore.godmode.commands.GodModeCommand;
-import me.matthewe.test.trialcore.profile.TrialProfile;
+import me.matthewe.test.trialcore.trash.commands.TrashCommand;
 import me.matthewedevelopment.atheriallib.handler.Handler;
 import me.matthewedevelopment.atheriallib.handler.HandlerPriority;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.inventory.Inventory;
 
 import static me.matthewedevelopment.atheriallib.utilities.ChatUtils.colorize;
