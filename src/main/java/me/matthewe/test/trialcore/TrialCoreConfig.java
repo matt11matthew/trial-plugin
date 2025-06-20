@@ -12,6 +12,12 @@ public class TrialCoreConfig   extends YamlConfig<TrialCore> {
     public ChatMessage invalidGameModeMessage = new ChatMessage("<red>Invalid gamemode <white>'<mode>'</white>, valid modes: CREATIVE, SURVIVAL, ADVENTURE, SPECTATOR. </red>");
 
 
+    @SerializedName("messages.godMode.toggleGodModeSelf")
+    public ChatMessage toggleGodModeSelfMessage = new ChatMessage("<green>God mode: <mode>.</green>");
+
+    @SerializedName("messages.godMode.toggleGodMode")
+    public ChatMessage toggleGodModeMessage = new ChatMessage("<green>Changed <player> godmode status to <mode>.</green>");
+
     @SerializedName("messages.gamemode.swapGameModeOther")
     public ChatMessage swapGameModeOtherMessage = new ChatMessage("<green>Changed <player> gamemode to <mode>.</green>");
 

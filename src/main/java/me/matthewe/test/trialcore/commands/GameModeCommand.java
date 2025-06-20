@@ -73,7 +73,7 @@ public class GameModeCommand  extends AtherialLibSpigotCommand<TrialCoreConfig, 
                     .build());
             return;
         }
-        config.youAreNowGameModeMessage.send(s, TagResolver.builder()
+        config.youAreNowGameModeMessage.send(target, TagResolver.builder()
                 .tag("player", Tag.inserting(Component.text(target.getName())))
                 .tag("mode", Tag.inserting(Component.text(foundGameMode.name())))
                 .build());

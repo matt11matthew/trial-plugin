@@ -1,0 +1,63 @@
+package me.matthewe.test.trialcore.godmode.commands;
+
+import me.matthewe.test.trialcore.TrialCore;
+import me.matthewe.test.trialcore.TrialCoreConfig;
+import me.matthewe.test.trialcore.profile.TrialProfile;
+import me.matthewedevelopment.atheriallib.command.spigot.AtherialLibSpigotCommand;
+import me.matthewedevelopment.atheriallib.command.spigot.CommandUtils;
+import me.matthewedevelopment.atheriallib.utilities.ListUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.tag.Tag;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class GodModeCommand extends AtherialLibSpigotCommand<TrialCoreConfig, TrialCore> {
+
+    public GodModeCommand(TrialCoreConfig config, TrialCore main) {
+        super("god", config, main, "godmode");
+        this.permission = config.gameModePermission;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+
+        return CommandUtils.getOnlinePlayersCompletion(args);
+    }
+
+    @Override
+    public void run(CommandSender s, String[] args) {
+        if (args.length != 1) {
+            CommandUtils.sendCommandUsage(s, "/" + label,  "[player]");
+            return;
+        }
+        Player player = Bukkit.getPlayer(args[0]);
+        if ((player == null) || !player.isOnline()) {
+            CommandUtils.sendPlayerOfflineMessage(s, args[0]);
+            return;
+        }
+
+        TrialProfile trialProfile = TrialProfile.get(player);
+        if (trialProfile==null)return;
+
+        boolean newMode = trialProfile.toggleGodMode(player);
+
+        config.toggleGodModeMessage.send(s, TagResolver.builder()
+                .tag("player", Tag.inserting(Component.text(player.getName())))
+                .tag("mode", Tag.inserting(Component.text(newMode)))
+                .build());
+
+        config.toggleGodModeSelfMessage.send(player, TagResolver.builder()
+                .tag("player", Tag.inserting(Component.text(player.getName())))
+                .tag("mode", Tag.inserting(Component.text(newMode)))
+                .build());
+
+    }
+
+}
