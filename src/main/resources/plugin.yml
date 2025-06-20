@@ -2,3 +2,4 @@ name: trialcore
 version: '1.0.0'
 main: me.matthewe.test.trialcore.TrialCore
 api-version: '1.21'
+depend: [AtherialLibPlugin]
