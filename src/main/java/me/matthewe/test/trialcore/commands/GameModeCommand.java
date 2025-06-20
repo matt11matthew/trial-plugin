@@ -4,19 +4,37 @@ import me.matthewe.test.trialcore.TrialCore;
 import me.matthewe.test.trialcore.TrialCoreConfig;
 import me.matthewedevelopment.atheriallib.command.spigot.AtherialLibSpigotCommand;
 import me.matthewedevelopment.atheriallib.command.spigot.CommandUtils;
+import me.matthewedevelopment.atheriallib.utilities.ListUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.tag.Tag;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class GameModeCommand  extends AtherialLibSpigotCommand<TrialCoreConfig, TrialCore> {
 
     public GameModeCommand(TrialCoreConfig config, TrialCore main) {
         super("gamemode", config, main, "gm");
         this.permission = config.gameModePermission;
+    }
+    private List<String> gameModes = Arrays.stream(GameMode.values()).map(Enum::name).toList();
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length==0 )
+            return gameModes;
+        if (args.length==1) {
+            return ListUtils.filterStartsWith(gameModes, args[0]);
+        }
+
+        return CommandUtils.getOnlinePlayersCompletion(args,1);
     }
 
     @Override
