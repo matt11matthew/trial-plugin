@@ -15,11 +15,11 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class OpenInventoryCommand extends AtherialLibSpigotCommand<TrialCoreConfig, TrialCore> {
+public class EnderChestCommand extends AtherialLibSpigotCommand<TrialCoreConfig, TrialCore> {
 
-    public OpenInventoryCommand(TrialCoreConfig config, TrialCore main) {
-        super("openinventory", config, main, "openinv");
-        this.permission = config.inventoryOpenPermission;
+    public EnderChestCommand(TrialCoreConfig config, TrialCore main) {
+        super("enderchest", config, main, "echest");
+        this.permission = config.echestOpenPermission;
         this.playerOnly =true;
     }
 
@@ -31,21 +31,33 @@ public class OpenInventoryCommand extends AtherialLibSpigotCommand<TrialCoreConf
 
     @Override
     public void run(CommandSender s, String[] args) {
-        if (args.length!=1) {
-            CommandUtils.sendCommandUsage(s, "/" + label, "<player>");
+        Player player;
+        if (args.length == 0) {
+            if (!(s instanceof Player)) {
+                CommandUtils.sendPlayerOnlyMessage(s);
+                return;
+            }
+            player = (Player) s;
+        } else if (args.length==1) {
+            player=Bukkit.getPlayer(args[0]);
+        } else {
+            CommandUtils.sendCommandUsage(s, "/" + label,  "[player]");
             return;
         }
 
-        Player player = Bukkit.getPlayer(args[0]);
         if ((player == null) || !player.isOnline()) {
             CommandUtils.sendPlayerOfflineMessage(s, args[0]);
             return;
         }
-        config.openingInventoryMessage.send(s, TagResolver.builder()
+
+        TrialProfile trialProfile = TrialProfile.get(player);
+        if (trialProfile==null)return;
+
+        config.echestOpeningMessage.send(s, TagResolver.builder()
                 .tag("player", Tag.inserting(Component.text(player.getName())))
                 .build());
         Player sender = (Player) s;
-        sender.openInventory(player.getInventory());
+        sender.openInventory(player.getEnderChest());
     }
 
 }
