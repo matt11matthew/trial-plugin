@@ -43,6 +43,7 @@ public  class TrialCore extends AtherialAddon {
         registerCommand(new EnderChestCommand(this.config, this));
         registerCommand(new FixCommand(this.config, this));
         registerCommand(new TPACommand(this.config, this));
+        registerCommand(new TPAAcceptCommand(this.config, this));
     }
 
     @Override

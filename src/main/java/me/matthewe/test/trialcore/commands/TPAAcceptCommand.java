@@ -69,7 +69,7 @@ public class TPAAcceptCommand extends AtherialLibSpigotCommand<TrialCoreConfig, 
         sender.teleport(player);
 
         config.tpaAcceptMessage.send(sender);
-        
+
 
 
     }
