@@ -6,6 +6,7 @@ import me.matthewe.test.trialcore.commands.GameModeCommand;
 import me.matthewe.test.trialcore.commands.OpenInventoryCommand;
 import me.matthewe.test.trialcore.godmode.GodModeHandler;
 import me.matthewe.test.trialcore.profile.TrialProfile;
+import me.matthewe.test.trialcore.trash.TrashHandler;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.matthewe.atheriallibplugin.AtherialAddon;
@@ -37,6 +38,7 @@ public  class TrialCore extends AtherialAddon {
 
         handlerManager =new HandlerManager<>(this);
         handlerManager.registerHandler(new GodModeHandler(this, config));
+        handlerManager.registerHandler(new TrashHandler(this, config));
         handlerManager.enableHandlers();
 
         registerCommand(new GameModeCommand(this.config, this));

@@ -13,7 +13,10 @@ public class TrialCoreConfig   extends YamlConfig<TrialCore> {
     public String inventoryOpenPermission = "inventoryopen.use";
 
     @SerializedName("permissions.fix")
-    public String fixPermission = "inventoryopen.use";
+    public String fixPermission = "fix.use";
+
+    @SerializedName("permissions.trash")
+    public String trashPermission = "trash.use";
 
 
    @SerializedName("permissions.echestOpen")
@@ -31,11 +34,20 @@ public class TrialCoreConfig   extends YamlConfig<TrialCore> {
     @SerializedName("messages.enderchest.opening")
     public ChatMessage echestOpeningMessage = new ChatMessage("<green>Opening <player>'s enderchest.</green>");
 
+    @SerializedName("messages.trash.open")
+    public ChatMessage trashOpenMessage = new ChatMessage("<green>Opening trash can...</green>");
     @SerializedName("messages.fix.fix")
     public ChatMessage fixItemMessage = new ChatMessage("<green>Fixed item.</green>");
 
     @SerializedName("messages.fix.noItemInMainHand")
     public ChatMessage fixNoItemInMainHandMessage = new ChatMessage("<red>Not holding item in hand.</red>");
+
+    @SerializedName("menus.trash.title")
+    public String trashMenuTitle = "Trash Menu";
+
+    @SerializedName("menus.trash.rows")
+    public Integer trashMenuRows = 3;
+
 
 
 

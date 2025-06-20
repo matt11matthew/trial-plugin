@@ -3,12 +3,10 @@ package me.matthewe.test.trialcore.commands;
 
 import me.matthewe.test.trialcore.TrialCore;
 import me.matthewe.test.trialcore.TrialCoreConfig;
+import me.matthewe.test.trialcore.trash.TrashHandler;
 import me.matthewedevelopment.atheriallib.command.spigot.AtherialLibSpigotCommand;
 import me.matthewedevelopment.atheriallib.command.spigot.CommandUtils;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.tag.Tag;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -17,13 +15,17 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
-public class FixCommand extends AtherialLibSpigotCommand<TrialCoreConfig, TrialCore> {
+public class TrashCommand extends AtherialLibSpigotCommand<TrialCoreConfig, TrialCore> {
 
-    public FixCommand(TrialCoreConfig config, TrialCore main) {
-        super("fix", config, main, "fixitem");
-        this.permission = config.fixPermission;
+    private TrashHandler trashHandler;
+    public TrashCommand(TrialCoreConfig config, TrialCore main, TrashHandler trashHandler) {
+        super("trash", config, main, "trashcan");
+        this.trashHandler = trashHandler;
+        this.permission = config.trashPermission;
         this.playerOnly =true;
     }
+
+
 
     @Override
     public void run(CommandSender s, String[] args) {
@@ -34,14 +36,9 @@ public class FixCommand extends AtherialLibSpigotCommand<TrialCoreConfig, TrialC
 
 
         Player p = (Player) s;
-        ItemStack mainItem = p.getEquipment().getItemInMainHand();
-        if (mainItem==null || mainItem.getType()== Material.AIR) {
-            config.fixNoItemInMainHandMessage.send(s);
-            return;
-        }
-        mainItem.setDurability((short) 0);
-        p.getEquipment().setItemInMainHand(mainItem);
-        config.fixItemMessage.send(s, TagResolver.builder()
+
+        trashHandler.openTrash(p);
+        config.trashOpenMessage.send(s, TagResolver.builder()
                 .build());
 
     }
